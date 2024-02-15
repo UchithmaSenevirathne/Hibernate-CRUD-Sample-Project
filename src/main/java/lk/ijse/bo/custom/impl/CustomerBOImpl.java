@@ -35,4 +35,19 @@ public class CustomerBOImpl implements CustomerBO {
         }
         return customerDTOS;
     }
+
+    @Override
+    public boolean update(CustomerDTO dto) {
+        return customerDAO.update(new Customer(
+                dto.getId(),
+                dto.getName(),
+                dto.getAddress(),
+                dto.getContact())
+        );
+    }
+
+    @Override
+    public boolean delete(String id) {
+        return customerDAO.delete(id);
+    }
 }

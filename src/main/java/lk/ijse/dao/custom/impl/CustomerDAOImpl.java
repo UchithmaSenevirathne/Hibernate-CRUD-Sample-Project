@@ -34,4 +34,25 @@ public class CustomerDAOImpl implements CustomerDAO {
         session.close();
         return resultList;
     }
+
+    @Override
+    public boolean update(Customer entity) {
+        Session session = SessionFactoryConfig.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+        session.update(entity);
+        transaction.commit();
+        session.close();
+        return true;
+    }
+
+    @Override
+    public boolean delete(String id) {
+        Session session = SessionFactoryConfig.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+        Customer customer = session.get(Customer.class, Integer.parseInt(id));
+        session.delete(customer);
+        transaction.commit();
+        session.close();
+        return true;
+    }
 }

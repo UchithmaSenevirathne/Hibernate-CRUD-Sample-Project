@@ -7,10 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -25,6 +22,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class CustomerView {
     @FXML
@@ -57,11 +55,21 @@ public class CustomerView {
     @FXML
     private TextField txtName;
 
+    private int index;
+
     CustomerBO customerBO = (CustomerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.CUSTOMER);
 
     public void initialize(){
+        initUi();
         setCellValueFactory();
         loadAllCustomers();
+    }
+
+    private void initUi() {
+        txtCusID.clear();
+        txtName.clear();
+        txtAddress.clear();
+        txtContact.clear();
     }
 
     private void setCellValueFactory(){
@@ -102,7 +110,21 @@ public class CustomerView {
 
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
+        ButtonType yes = new ButtonType("yes", ButtonBar.ButtonData.OK_DONE);
+        ButtonType no = new ButtonType("no", ButtonBar.ButtonData.CANCEL_CLOSE);
+        Optional<ButtonType> type = new Alert(Alert.AlertType.INFORMATION, "Are you sure to remove?", yes, no).showAndWait();
 
+        if(type.orElse(no) == yes) {
+            String id = txtCusID.getText();
+            boolean delete = customerBO.delete(id);
+            if (delete) {
+                new Alert(Alert.AlertType.INFORMATION, "delete successfully").show();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "something went wrong").show();
+            }
+        }
+        loadAllCustomers();
+        initUi();
     }
 
     @FXML
@@ -113,15 +135,33 @@ public class CustomerView {
         }else {
             new Alert(Alert.AlertType.ERROR,"something went wrong").show();
         }
+        loadAllCustomers();
+        initUi();
     }
 
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
-
+        boolean update = customerBO.update(new CustomerDTO(Integer.parseInt(txtCusID.getText()), txtName.getText(), txtAddress.getText(), txtContact.getText()));
+        if (update){
+            new Alert(Alert.AlertType.INFORMATION,"update successfully").show();
+        }else {
+            new Alert(Alert.AlertType.ERROR,"something went wrong").show();
+        }
+        loadAllCustomers();
+        initUi();
     }
 
     @FXML
     void tableOnAction(MouseEvent event) {
+        index = cusTable.getSelectionModel().getSelectedIndex();
 
+        if(index <= -1){
+            return;
+        }
+
+        txtCusID.setText(colId.getCellData(index).toString());
+        txtName.setText(colName.getCellData(index).toString());
+        txtAddress.setText(colAddress.getCellData(index).toString());
+        txtContact.setText(colContact.getCellData(index).toString());
     }
 }

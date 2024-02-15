@@ -2,6 +2,8 @@ package lk.ijse.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -55,21 +57,18 @@ public class CustomerView {
     @FXML
     private TextField txtName;
 
+    @FXML
+    private TextField txtSearchCus;
+
     private int index;
+
+    private final ObservableList<CustomerTM> customerTMS = FXCollections.observableArrayList();
 
     CustomerBO customerBO = (CustomerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.CUSTOMER);
 
     public void initialize(){
-        initUi();
         setCellValueFactory();
         loadAllCustomers();
-    }
-
-    private void initUi() {
-        txtCusID.clear();
-        txtName.clear();
-        txtAddress.clear();
-        txtContact.clear();
     }
 
     private void setCellValueFactory(){
@@ -80,7 +79,7 @@ public class CustomerView {
     }
 
     private void loadAllCustomers() {
-        ObservableList<CustomerTM> customerTMS = FXCollections.observableArrayList();
+        customerTMS.clear();
         for (CustomerDTO customerDTO : customerBO.getAll()) {
             customerTMS.add(new CustomerTM(
                     customerDTO.getId(),
@@ -163,5 +162,46 @@ public class CustomerView {
         txtName.setText(colName.getCellData(index).toString());
         txtAddress.setText(colAddress.getCellData(index).toString());
         txtContact.setText(colContact.getCellData(index).toString());
+    }
+
+    @FXML
+    void txtSearchOnAction(ActionEvent event) {
+        FilteredList<CustomerTM> filteredData = new FilteredList<>(customerTMS, b -> true);
+
+        txtSearchCus.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(CustomerTM -> {
+
+                if(newValue.isEmpty() || newValue.isBlank() || newValue == null){
+                    return true;
+                }
+                String searchKeyword = newValue.toLowerCase();
+
+                String id = String.valueOf(CustomerTM.getId());
+
+                if(id.toLowerCase().indexOf(searchKeyword) > -1){
+                    return true;
+                }else if(CustomerTM.getName().toLowerCase().indexOf(searchKeyword) > -1){
+                    return true;
+                }else if(CustomerTM.getAddress().toLowerCase().indexOf(searchKeyword) > -1){
+                    return true;
+                }else if(CustomerTM.getContact().toLowerCase().indexOf(searchKeyword) > -1){
+                    return true;
+                }else
+                    return false;
+            });
+        });
+
+        SortedList<CustomerTM> sortedData = new SortedList<>(filteredData);
+
+        sortedData.comparatorProperty().bind(cusTable.comparatorProperty());
+
+        cusTable.setItems(sortedData);
+    }
+
+    private void initUi() {
+        txtCusID.clear();
+        txtName.clear();
+        txtAddress.clear();
+        txtContact.clear();
     }
 }

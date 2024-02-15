@@ -10,14 +10,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane fx:id="anchorpane" prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: A3BB1F;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.controller.CustomerView">
+<AnchorPane fx:id="anchorpane" prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: A3BB1F;" stylesheets="@../style/tableViewStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.controller.CustomerView">
    <children>
       <TextField fx:id="txtCusID" layoutX="48.0" layoutY="239.0" prefHeight="37.0" prefWidth="288.0" promptText="ID" />
       <TextField fx:id="txtName" layoutX="46.0" layoutY="318.0" prefHeight="37.0" prefWidth="288.0" promptText="NAME" />
       <TextField fx:id="txtAddress" layoutX="46.0" layoutY="397.0" prefHeight="37.0" prefWidth="288.0" promptText="ADDRESS" />
       <TextField fx:id="txtContact" layoutX="46.0" layoutY="474.0" prefHeight="37.0" prefWidth="288.0" promptText="CONTACT" />
-      <TableView fx:id="cusTable" layoutX="400.0" layoutY="128.0" onMouseClicked="#tableOnAction" prefHeight="535.0" prefWidth="558.0">
+      <TableView fx:id="cusTable" layoutX="400.0" layoutY="128.0" onMouseClicked="#tableOnAction" prefHeight="535.0" prefWidth="558.0" stylesheets="@../style/tableViewStyle.css">
         <columns>
           <TableColumn fx:id="colId" prefWidth="83.0" text="ID" />
           <TableColumn fx:id="colName" prefWidth="192.0" text="NAME" />
@@ -55,5 +54,6 @@
             <Image url="@../assets/images/young-woman-supermarket-with-vegetables-fruits-buying-groceries-removebg-preview.png" />
          </image>
       </ImageView>
+      <TextField fx:id="txtSearchCus" layoutX="573.0" layoutY="37.0" onAction="#txtSearchOnAction" prefHeight="37.0" prefWidth="385.0" promptText="SEARCH" />
    </children>
 </AnchorPane>

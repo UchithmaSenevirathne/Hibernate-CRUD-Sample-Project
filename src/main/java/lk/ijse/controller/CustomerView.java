@@ -5,12 +5,21 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import lk.ijse.bo.BOFactory;
+import lk.ijse.bo.custom.CustomerBO;
+import lk.ijse.config.SessionFactoryConfig;
+import lk.ijse.dto.CustomerDTO;
+import lk.ijse.entity.Customer;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import java.io.IOException;
 
@@ -45,6 +54,24 @@ public class CustomerView {
     @FXML
     private TextField txtName;
 
+    CustomerBO customerBO = (CustomerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.CUSTOMER);
+
+    public void initialize(){
+        setCellValueFactory();
+        loadAllCustomers();
+    }
+
+    private void setCellValueFactory(){
+        colId.setCellValueFactory(new PropertyValueFactory<>("customer_id"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("customer_name"));
+        colAddress.setCellValueFactory(new PropertyValueFactory<>("customer_address"));
+        colContact.setCellValueFactory(new PropertyValueFactory<>("customer_contact"));
+    }
+
+    private void loadAllCustomers() {
+
+    }
+
     @FXML
     void btnBackOnAction(ActionEvent event) {
         Parent rootNode = null;
@@ -68,7 +95,12 @@ public class CustomerView {
 
     @FXML
     void btnSaveOnAction(ActionEvent event) {
-
+        boolean save = customerBO.save(new CustomerDTO(Integer.parseInt(txtCusID.getText()), txtName.getText(), txtAddress.getText(), txtContact.getText()));
+        if (save){
+            new Alert(Alert.AlertType.CONFIRMATION,"saved successfully").show();
+        }else {
+            new Alert(Alert.AlertType.ERROR,"something went wrong").show();
+        }
     }
 
     @FXML

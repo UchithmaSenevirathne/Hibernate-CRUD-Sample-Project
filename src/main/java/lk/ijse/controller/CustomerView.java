@@ -1,5 +1,7 @@
 package lk.ijse.controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +19,7 @@ import lk.ijse.bo.BOFactory;
 import lk.ijse.bo.custom.CustomerBO;
 import lk.ijse.config.SessionFactoryConfig;
 import lk.ijse.dto.CustomerDTO;
+import lk.ijse.dto.tm.CustomerTM;
 import lk.ijse.entity.Customer;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -40,7 +43,7 @@ public class CustomerView {
     private TableColumn<?, ?> colName;
 
     @FXML
-    private TableView<?> cusTable;
+    private TableView<CustomerTM> cusTable;
 
     @FXML
     private TextField txtAddress;
@@ -62,14 +65,23 @@ public class CustomerView {
     }
 
     private void setCellValueFactory(){
-        colId.setCellValueFactory(new PropertyValueFactory<>("customer_id"));
-        colName.setCellValueFactory(new PropertyValueFactory<>("customer_name"));
-        colAddress.setCellValueFactory(new PropertyValueFactory<>("customer_address"));
-        colContact.setCellValueFactory(new PropertyValueFactory<>("customer_contact"));
+        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
+        colContact.setCellValueFactory(new PropertyValueFactory<>("contact"));
     }
 
     private void loadAllCustomers() {
-
+        ObservableList<CustomerTM> customerTMS = FXCollections.observableArrayList();
+        for (CustomerDTO customerDTO : customerBO.getAll()) {
+            customerTMS.add(new CustomerTM(
+                    customerDTO.getId(),
+                    customerDTO.getName(),
+                    customerDTO.getAddress(),
+                    customerDTO.getContact())
+            );
+        }
+        cusTable.setItems(customerTMS);
     }
 
     @FXML

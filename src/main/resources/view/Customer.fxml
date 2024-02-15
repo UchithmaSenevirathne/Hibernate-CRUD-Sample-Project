@@ -5,13 +5,15 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 
 <AnchorPane fx:id="anchorpane" prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: A3BB1F;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.controller.CustomerView">
    <children>
-      <TextField fx:id="txtCusID" layoutX="46.0" layoutY="240.0" prefHeight="37.0" prefWidth="204.0" promptText="ID" />
+      <TextField fx:id="txtCusID" layoutX="48.0" layoutY="239.0" prefHeight="37.0" prefWidth="288.0" promptText="ID" />
       <TextField fx:id="txtName" layoutX="46.0" layoutY="318.0" prefHeight="37.0" prefWidth="288.0" promptText="NAME" />
       <TextField fx:id="txtAddress" layoutX="46.0" layoutY="397.0" prefHeight="37.0" prefWidth="288.0" promptText="ADDRESS" />
       <TextField fx:id="txtContact" layoutX="46.0" layoutY="474.0" prefHeight="37.0" prefWidth="288.0" promptText="CONTACT" />
@@ -48,5 +50,10 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </Button>
+      <ImageView fitHeight="190.0" fitWidth="288.0" layoutX="112.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/images/young-woman-supermarket-with-vegetables-fruits-buying-groceries-removebg-preview.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

@@ -1,0 +1,12 @@
+.table-view .column-header {
+    -fx-background-color: #879e05;
+    -fx-border-style: none;
+}
+
+.table-view .column-header:hover{
+    -fx-background-color:  #879e05;
+}
+
+.table-view .table-row-cell:filled:selected{
+    -fx-background-color: #879e05;
+}

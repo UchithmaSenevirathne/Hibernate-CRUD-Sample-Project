@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="anchorpane" prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: FDDD0C;" stylesheets="@../style/tableViewStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.controller.ItemView">
+   <children>
+      <TextField fx:id="txtCode" layoutX="48.0" layoutY="239.0" prefHeight="37.0" prefWidth="288.0" promptText="CODE" />
+      <TextField fx:id="txtDescipt" layoutX="46.0" layoutY="318.0" prefHeight="37.0" prefWidth="288.0" promptText="DESCRIPTION" />
+      <TextField fx:id="txtUnitprice" layoutX="46.0" layoutY="397.0" prefHeight="37.0" prefWidth="288.0" promptText="UNITPRICE" />
+      <TextField fx:id="txtQtyOnHand" layoutX="46.0" layoutY="474.0" prefHeight="37.0" prefWidth="288.0" promptText="QUANTITY ON HAND" />
+      <TableView fx:id="itemTable" layoutX="400.0" layoutY="128.0" onMouseClicked="#tableOnAction" prefHeight="535.0" prefWidth="558.0">
+        <columns>
+          <TableColumn fx:id="colCode" prefWidth="83.0" text="CODE" />
+          <TableColumn fx:id="colDescript" prefWidth="192.0" text="DESCRIPTION" />
+            <TableColumn fx:id="colUP" prefWidth="131.0" text="UNITPRICE" />
+            <TableColumn fx:id="colQOH" prefWidth="151.0" text="QTY ON HAND" />
+        </columns>
+         <stylesheets>
+            <URL value="@../style/tableViewStyle.css" />
+            <URL value="@../style/ItemTable.css" />
+         </stylesheets>
+      </TableView>
+      <Button layoutX="46.0" layoutY="626.0" mnemonicParsing="false" onAction="#btnSaveOnAction" prefHeight="37.0" prefWidth="80.0" style="-fx-background-color: #d0b30d;" text="SAVE" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Button>
+      <Label layoutX="46.0" layoutY="128.0" text="ITEMS" textFill="WHITE">
+         <font>
+            <Font name="Maiandra GD" size="25.0" />
+         </font>
+      </Label>
+      <Button layoutX="150.0" layoutY="626.0" mnemonicParsing="false" onAction="#btnUpdateOnAction" prefHeight="37.0" prefWidth="80.0" style="-fx-background-color: #d0b30d;" text="UPDATE" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Button>
+      <Button layoutX="254.0" layoutY="626.0" mnemonicParsing="false" onAction="#btnDeleteOnAction" prefHeight="37.0" prefWidth="80.0" style="-fx-background-color: #d0b30d;" text="DELETE" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Button>
+      <Button layoutX="46.0" layoutY="37.0" mnemonicParsing="false" onAction="#btnBackOnAction" prefHeight="37.0" prefWidth="80.0" style="-fx-background-color: #d0b30d;" text="back" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="303.0" fitWidth="465.0" layoutX="134.0" layoutY="-64.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/images/assortment-with-shopping-cart-cereals-green-background-removebg-preview.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="txtSearchItem" layoutX="573.0" layoutY="37.0" onAction="#txtSearchOnAction" prefHeight="37.0" prefWidth="385.0" promptText="SEARCH" />
+   </children>
+</AnchorPane>

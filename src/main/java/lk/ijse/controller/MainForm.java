@@ -32,7 +32,18 @@ public class MainForm {
 
     @FXML
     void btnItemsOnAction(ActionEvent event) {
+        Parent rootNode = null;
+        try {
+            rootNode = FXMLLoader.load(getClass().getResource("/view/Item.fxml"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
+        Scene scene = new Scene(rootNode);
+        Stage stage = (Stage) this.anchorpane.getScene().getWindow();
+        stage.setTitle("ITEMS");
+        stage.setScene(scene);
+        stage.centerOnScreen();
     }
 
     @FXML

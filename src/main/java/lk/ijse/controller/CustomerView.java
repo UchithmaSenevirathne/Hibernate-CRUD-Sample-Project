@@ -80,6 +80,7 @@ public class CustomerView {
 
     private void loadAllCustomers() {
         customerTMS.clear();
+        //get customers
         for (CustomerDTO customerDTO : customerBO.getAll()) {
             customerTMS.add(new CustomerTM(
                     customerDTO.getId(),
@@ -115,6 +116,7 @@ public class CustomerView {
 
         if(type.orElse(no) == yes) {
             String id = txtCusID.getText();
+            //delete customer
             boolean delete = customerBO.delete(id);
             if (delete) {
                 new Alert(Alert.AlertType.INFORMATION, "delete successfully").show();
@@ -128,6 +130,7 @@ public class CustomerView {
 
     @FXML
     void btnSaveOnAction(ActionEvent event) {
+        //save customer
         boolean save = customerBO.save(new CustomerDTO(Integer.parseInt(txtCusID.getText()), txtName.getText(), txtAddress.getText(), txtContact.getText()));
         if (save){
             new Alert(Alert.AlertType.CONFIRMATION,"saved successfully").show();
@@ -140,6 +143,7 @@ public class CustomerView {
 
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
+        //update customer
         boolean update = customerBO.update(new CustomerDTO(Integer.parseInt(txtCusID.getText()), txtName.getText(), txtAddress.getText(), txtContact.getText()));
         if (update){
             new Alert(Alert.AlertType.INFORMATION,"update successfully").show();

@@ -15,21 +15,12 @@
     -fx-border-style: none;
 }
 
-/* Set the column header text color */
-.table-view .column-header {
-    -fx-background-color: #879e05;
-    -fx-border-style: none;
-}
 
 .table-view .column-header .label{
     -fx-padding: 10;
     -fx-text-fill: white;
     -fx-font-size: 16px;
     -fx-font-family: Corbel;
-}
-
-.table-view .column-header:hover{
-    -fx-background-color:  #879e05;
 }
 
 /* Set default cell padding and text color */
@@ -39,10 +30,6 @@
     -fx-font-size: 15px;
     -fx-alignment: center;
     -fx-border-width: 0 0 0 0;
-}
-
-.table-view .table-row-cell:filled:selected{
-    -fx-background-color: #879e05;
 }
 
 /* Set the selection color */

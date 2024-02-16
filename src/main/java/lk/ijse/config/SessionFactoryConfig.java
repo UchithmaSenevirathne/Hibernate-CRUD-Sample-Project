@@ -1,6 +1,7 @@
 package lk.ijse.config;
 
 import lk.ijse.entity.Customer;
+import lk.ijse.entity.Item;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
@@ -37,7 +38,10 @@ public class SessionFactoryConfig {
 
     private SessionFactoryConfig(){
         StandardServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().build();
-        Metadata metadata = new MetadataSources(serviceRegistry).addAnnotatedClass(Customer.class).getMetadataBuilder().build();
+        Metadata metadata = new MetadataSources(serviceRegistry)
+                .addAnnotatedClass(Customer.class)
+                .addAnnotatedClass(Item.class)
+                .getMetadataBuilder().build();
         sessionFactory = metadata.buildSessionFactory();
     }
 
